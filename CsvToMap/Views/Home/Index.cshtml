@@ -1,0 +1,38 @@
+﻿<div id="map-outer">
+    <div class="jumbotron">
+        <h1 class="display-4">CSV to Map</h1>
+        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <p class="lead">
+            <button class="btn btn-outline-primary btn-lg" v-on:click="drawMap">Draw Map</button>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="map"></div>
+        </div>
+        <div class="col-md-6">
+            <div v-if="startedMap && !finishedMap">
+                <span class="badge badge-warning">Started</span>
+            </div>
+            <div v-else>
+                <div v-if="!startedMap && finishedMap">
+                    <span class="badge badge-success">Finished</span>
+
+                    <div v-if="recordCount > 0">
+                        <h3>Total records processed: {{ recordCount }}</h3>
+
+                        <button class="btn btn-outline-info btn-lg" data-toggle="collapse" data-target="#demo">Data Imported (Collapsible)</button>
+                        <div id="demo" class="collapse" v-for="item in list">
+                            <li v-for="rec in item">{{ rec }}</li>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <h3>No records processed</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

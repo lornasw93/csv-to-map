@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>csv-to-map</title>
+
+    <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="/less/main.less" />
+</head>
+<body>
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <script type="text/javascript" src="~/lib/jquery/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" defer src="~/lib/bootstrap/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=APIKEY"></script>
+    <script type="text/javascript" src="/lib/markerclusterer.js"></script>
+    @*<script type="text/javascript" src="~/lib/vue.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js" integrity="sha256-ufGElb3TnOtzl5E4c/qQnZFGP+FYEZj5kbSEdJNrw0A=" crossorigin="anonymous"></script>
+</body>
+</html>
+
+<script>
+    $(function () {
+        var map = new Vue({
+            el: "#map-outer",
+            data: {
+                //startedFile: false,
+                //finishedFile: false,
+                startedMap: false,
+                finishedMap: false,
+                recordCount: 0,
+                list: []
+            },
+            methods: {
+                //generateFile: function () {
+                //    var $this = this;
+                //    $this.startedFile = true;
+                //    $.get("/api/GenerateFile/", function () {
+                //        $this.startedFile = false;
+                //        $this.finishedFile = true;
+                //    });
+                //},
+                drawMap: function () {
+                    var $this = this;
+                    $this.startedMap = true;
+
+                    $.get("/api/Map/", function (response) {
+                        initMap(response);
+                        $this.list.push(response);
+
+                        $this.recordCount = response.length;
+                        $this.startedMap = false;
+                        $this.finishedMap = true;
+                    });
+                }
+            }
+        });
+
+        function initMap(locations) {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                //maxZoom: 9,
+                streetViewControl: false,
+                center: { lat: 53.8063197, lng: -1.6422472 } // Middle of UK
+            });
+
+            var markers = locations.map(function (location, i) {
+                var labels = '1';
+
+                return new google.maps.Marker({
+                    position: { lat: location.Latitude, lng: location.Longitude },
+                    label: labels[i % labels.length]
+                });
+            });
+
+            var markerCluster = new MarkerClusterer(map, markers, { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
+        }
+    });
+</script>
