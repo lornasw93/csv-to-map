@@ -10,16 +10,14 @@ using Newtonsoft.Json;
 namespace CsvToMap.Controllers.Api
 {
     public class FileController : ApiController
-    {
-        private const string Path = "C:\\Users\\lorna.watson\\Documents\\Projects\\CsvToMap";
-
+    { 
         [System.Web.Mvc.HttpGet]
         public IHttpActionResult Get()
         {
             try
             {
                 var list = new List<Map>();
-                var data = File.ReadAllLines($"{Path}\\LatitudeLongitude.csv");
+                var data = File.ReadAllLines($"{PathConstant.Path}\\LatitudeLongitude.csv");
 
                 list = data.Skip(1)
                     .Select(t => t.Split(','))
@@ -59,7 +57,7 @@ namespace CsvToMap.Controllers.Api
 
         private static List<string> GetPostcodes()
         {
-            var data = File.ReadAllLines($"{Path}\\Postcodes.csv");
+            var data = File.ReadAllLines($"{PathConstant.Path}\\Postcodes.csv");
             var postcodes = data.Skip(1)
                 .Select(c => !string.IsNullOrWhiteSpace(c.Split(',')[0])
                     ? c.Split(',')[0]
@@ -69,7 +67,7 @@ namespace CsvToMap.Controllers.Api
 
         private static void SerializeToFile(List<Map> list)
         {
-            using (var stream = File.CreateText($"{Path}\\Results.json"))
+            using (var stream = File.CreateText($"{PathConstant.Path}\\Results.json"))
             {
                 var serializer = new JsonSerializer();
                 serializer.Serialize(stream, list);
@@ -87,7 +85,7 @@ namespace CsvToMap.Controllers.Api
 
         private bool CsvExists()
         {
-            var directory = new DirectoryInfo(Path);
+            var directory = new DirectoryInfo(PathConstant.Path);
             if (!directory.Exists)
                 return false;
 

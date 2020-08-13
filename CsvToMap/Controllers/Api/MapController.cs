@@ -10,9 +10,7 @@ using Newtonsoft.Json;
 namespace CsvToMap.Controllers.Api
 {
     public class MapController : ApiController
-    {
-        private const string Path = "C:\\Users\\lorna.watson\\Documents\\Projects\\CsvToMap";
-
+    { 
         [System.Web.Mvc.HttpGet]
         public IHttpActionResult Get()
         {
@@ -20,7 +18,7 @@ namespace CsvToMap.Controllers.Api
             {
                 var list = new List<Map>();
 
-                var directory = new DirectoryInfo(Path);
+                var directory = new DirectoryInfo(PathConstant.Path);
                 if (directory.Exists)
                 {
                     var files = directory.GetFiles().OrderByDescending(f => f.LastWriteTime);

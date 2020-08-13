@@ -6,6 +6,7 @@
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <p class="lead">
             <button class="btn btn-outline-primary btn-lg" v-on:click="drawMap">Draw Map</button>
+            <button class="btn btn-outline-primary btn-lg" v-on:click="generateFile">Generate File</button>
         </p>
     </div>
     <div class="row">
@@ -25,6 +26,26 @@
 
                         <button class="btn btn-outline-info btn-lg" data-toggle="collapse" data-target="#demo">Data Imported (Collapsible)</button>
                         <div id="demo" class="collapse" v-for="item in list">
+                            <li v-for="rec in item">{{ rec }}</li>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <h3>No records processed</h3>
+                    </div>
+                </div>
+            </div>
+            <div v-if="startedFile && !finishedFile">
+                <span class="badge badge-warning">Started</span>
+            </div>
+            <div v-else>
+                <div v-if="!startedFile && finishedFile">
+                    <span class="badge badge-success">Finished</span>
+
+                    <div v-if="fileRecordCount > 0">
+                        <h3>Total records processed from file: {{ fileRecordCount }}</h3>
+
+                        <button class="btn btn-outline-info btn-lg" data-toggle="collapse" data-target="#fromFile">Data Imported</button>
+                        <div id="fromFile" class="collapse" v-for="item in fileList">
                             <li v-for="rec in item">{{ rec }}</li>
                         </div>
                     </div>

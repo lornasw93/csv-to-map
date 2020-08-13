@@ -15,9 +15,8 @@
 
     <script type="text/javascript" src="~/lib/jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" defer src="~/lib/bootstrap/bootstrap.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=APIKEY"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY"></script>
     <script type="text/javascript" src="/lib/markerclusterer.js"></script>
-    @*<script type="text/javascript" src="~/lib/vue.min.js"></script>*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js" integrity="sha256-ufGElb3TnOtzl5E4c/qQnZFGP+FYEZj5kbSEdJNrw0A=" crossorigin="anonymous"></script>
 </body>
 </html>
@@ -27,22 +26,27 @@
         var map = new Vue({
             el: "#map-outer",
             data: {
-                //startedFile: false,
-                //finishedFile: false,
+                startedFile: false,
+                finishedFile: false,
                 startedMap: false,
                 finishedMap: false,
                 recordCount: 0,
-                list: []
+                fileRecordCount: 0,
+                list: [],
+                fileList:[]
             },
             methods: {
-                //generateFile: function () {
-                //    var $this = this;
-                //    $this.startedFile = true;
-                //    $.get("/api/GenerateFile/", function () {
-                //        $this.startedFile = false;
-                //        $this.finishedFile = true;
-                //    });
-                //},
+                generateFile: function () {
+                    var $this = this;
+                    $this.startedFile = true;
+
+                    $.get("/api/File/", function (response) {
+                        $this.fileRecordCount = response.length; 
+                        $this.fileList.push(response);
+                        $this.startedFile = false;
+                        $this.finishedFile = true;
+                    });
+                },
                 drawMap: function () {
                     var $this = this;
                     $this.startedMap = true;
