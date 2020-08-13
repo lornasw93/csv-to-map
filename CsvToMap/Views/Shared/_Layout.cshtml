@@ -15,7 +15,7 @@
 
     <script type="text/javascript" src="~/lib/jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" defer src="~/lib/bootstrap/bootstrap.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0jTm4UiAPhdhMij9R3ypg9wJSMIjQT14"></script>
     <script type="text/javascript" src="/lib/markerclusterer.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js" integrity="sha256-ufGElb3TnOtzl5E4c/qQnZFGP+FYEZj5kbSEdJNrw0A=" crossorigin="anonymous"></script>
 </body>
@@ -23,7 +23,7 @@
 
 <script>
     $(function () {
-        var map = new Vue({
+        new Vue({
             el: "#map-outer",
             data: {
                 startedFile: false,
@@ -33,7 +33,7 @@
                 recordCount: 0,
                 fileRecordCount: 0,
                 list: [],
-                fileList:[]
+                fileList: []
             },
             methods: {
                 generateFile: function () {
@@ -41,7 +41,7 @@
                     $this.startedFile = true;
 
                     $.get("/api/File/", function (response) {
-                        $this.fileRecordCount = response.length; 
+                        $this.fileRecordCount = response.length;
                         $this.fileList.push(response);
                         $this.startedFile = false;
                         $this.finishedFile = true;

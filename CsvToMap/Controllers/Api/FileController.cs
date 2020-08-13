@@ -7,18 +7,19 @@ using CsvToMap.Models;
 using MarkEmbling.PostcodesIO;
 using Newtonsoft.Json;
 
-namespace CsvToMap.Controllers
+namespace CsvToMap.Controllers.Api
 {
     public class FileController : ApiController
     {
-        [Route("api/File")]
+        private const string FilePath = @"..//SampleFiles";
+
         [HttpGet]
         public IHttpActionResult Get()
         {
             try
             {
                 var list = new List<Map>();
-                var data = File.ReadAllLines($"{PathConstant.Path}\\LatitudeLongitude.csv");
+                var data = File.ReadAllLines($@"{FilePath}/LatitudeLongitude.csv");
 
                 list = data.Skip(1)
                     .Select(t => t.Split(','))
@@ -58,7 +59,7 @@ namespace CsvToMap.Controllers
 
         private static List<string> GetPostcodes()
         {
-            var data = File.ReadAllLines($"{PathConstant.Path}\\Postcodes.csv");
+            var data = File.ReadAllLines($@"{FilePath}/Postcodes.csv");
             var postcodes = data.Skip(1)
                 .Select(c => !string.IsNullOrWhiteSpace(c.Split(',')[0])
                     ? c.Split(',')[0]
@@ -68,7 +69,7 @@ namespace CsvToMap.Controllers
 
         private static void SerializeToFile(List<Map> list)
         {
-            using (var stream = File.CreateText($"{PathConstant.Path}\\Results.json"))
+            using (var stream = File.CreateText($@"{FilePath}/Results.json"))
             {
                 var serializer = new JsonSerializer();
                 serializer.Serialize(stream, list);

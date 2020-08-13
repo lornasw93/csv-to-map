@@ -6,12 +6,11 @@ using System.Web.Http;
 using CsvToMap.Models;
 using Newtonsoft.Json;
 
-namespace CsvToMap.Controllers
+namespace CsvToMap.Controllers.Api
 {
-    [Route("api/Map")]
     public class MapController : ApiController
     { 
-        [System.Web.Mvc.HttpGet]
+        [HttpGet]
         public IHttpActionResult Get()
         {
             try
