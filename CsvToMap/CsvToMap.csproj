@@ -161,10 +161,6 @@
     <Content Include="lib\bootstrap\bootstrap.js" />
     <Content Include="lib\bootstrap\bootstrap.min.css" />
     <Content Include="lib\bootstrap\bootstrap.min.js" />
-    <Content Include="lib\initMap.js" />
-    <Content Include="lib\jquery\jquery-3.3.1.min.js" />
-    <Content Include="lib\jquery\jquery.validate.min.js" />
-    <Content Include="lib\jquery\jquery.validate.unobtrusive.min.js" />
     <Content Include="lib\markerclusterer.js" />
     <Content Include="lib\popper\esm\popper-utils.js" />
     <Content Include="lib\popper\esm\popper-utils.min.js" />
