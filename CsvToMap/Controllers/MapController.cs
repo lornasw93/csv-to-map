@@ -4,11 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Web.Http;
 using CsvToMap.Models;
-using MarkEmbling.PostcodesIO;
 using Newtonsoft.Json;
 
-namespace CsvToMap.Controllers.Api
+namespace CsvToMap.Controllers
 {
+    [Route("api/Map")]
     public class MapController : ApiController
     { 
         [System.Web.Mvc.HttpGet]

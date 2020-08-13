@@ -7,11 +7,12 @@ using CsvToMap.Models;
 using MarkEmbling.PostcodesIO;
 using Newtonsoft.Json;
 
-namespace CsvToMap.Controllers.Api
+namespace CsvToMap.Controllers
 {
     public class FileController : ApiController
-    { 
-        [System.Web.Mvc.HttpGet]
+    {
+        [Route("api/File")]
+        [HttpGet]
         public IHttpActionResult Get()
         {
             try
@@ -81,16 +82,6 @@ namespace CsvToMap.Controllers.Api
                 .GroupBy(x => x.Index / chunkSize)
                 .Select(x => x.Select(v => v.Value).ToList())
                 .ToList();
-        }
-
-        private bool CsvExists()
-        {
-            var directory = new DirectoryInfo(PathConstant.Path);
-            if (!directory.Exists)
-                return false;
-
-            var files = directory.GetFiles().OrderByDescending(f => f.LastWriteTime);
-            return (files.Any());
         }
     }
 }
